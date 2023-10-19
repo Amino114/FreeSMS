@@ -1,19 +1,47 @@
+<!DOCTYPE html>
+<html>
 <head>
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-
+    <title>SMS Sender</title>
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {background-color: #333; color: #ccc; font-family: 'Courier New', monospace; text-align: center; margin: 0; padding: 0;}
+        form {margin: 20px auto; display: flex; flex-direction: column; align-items: center;}
+        label {font-size: 18px; margin: 10px 0;}
+        input[type="text"], textarea {background: #444; color: #fff; border: none; padding: 10px; width: 300px; border-radius: 5px; font-size: 16px; margin: 5px 0; transition: background-color 0.3s; font-family: 'Courier New', monospace;}
+        input[type="text"]:focus, textarea:focus {background: #555;}
+        input[type="submit"] {margin-top: 10px; background: #0088cc; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; font-size: 18px; cursor: pointer; transition: background-color 0.3s;}
+        input[type="submit"]:hover {background: #005b8c;}
+        .hint {color: #888; font-size: 12px; margin-left: 10px;}
+        #status-message {margin: 20px;}
+        #status-message p {background: #222; color: #fff; padding: 10px; border-radius: 5px; font-size: 16px;}
+    </style>
+</head>
 <body>
-    <div class="App">
-        <header class="App-header">
-            <img src="{{ url_for('static', filename='Octocat.png') }}" class="App-logo" alt="logo" />
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Flask
-            </p>
-            <p class="small">
-                Edit <code>templates/index.html</code> and refresh to see your changes!
-            </p>
-        </header>
+    <form method="POST" action="/">
+        <label for="sender">Sender Name:</label>
+        <input type="text" name="sender" required maxlength="20" pattern="^[A-Za-z\s]{1,}[A-Za-z]{1,}$">
+        <span class="hint">(At least two letters and spaces)</span>
+        
+        <label for="recipient">Recipient Number:</label>
+        <input type="text" name="recipient" required pattern="^[0-9]{10,15}$" maxlength="15">
+        <span class="hint">(Numeric, 10 to 15 digits)</span>
+        
+        <label for="message">Message Text:</label>
+        <textarea name="message" required maxlength="160"></textarea>
+        <span class="hint">(Up to 160 characters)</span>
+        
+        <input type="submit" value="Send SMS">
+    </form>
+    <div id="status-message">
+        {% if status_message %}
+            <p>{{ status_message }}</p>
+            <script>
+                // JavaScript to wait for 5 seconds before reloading to the root URL
+                setTimeout(function() {
+                    window.location.href = '/';
+                }, 3000);  // 3000 milliseconds = 3 seconds
+            </script>
+        {% endif %}
     </div>
 </body>
-
 </html>
