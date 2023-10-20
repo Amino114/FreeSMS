@@ -1,79 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SMS Sender</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <style>
-        body {background-color: #333; color: #ccc; font-family: 'Courier New', monospace; text-align: center; margin: 0; padding: 0;}
-        form {margin: 20px auto; display: flex; flex-direction: column; align-items: center;}
-        label {font-size: 18px; margin: 10px 0;}
-        input[type="text"], textarea {background: #444; color: #fff; border: none; padding: 10px; width: 300px; border-radius: 5px; font-size: 16px; margin: 5px 0; transition: background-color 0.3s; font-family: 'Courier New', monospace;}
-        input[type="text"]:focus, textarea:focus {background: #555;}
-        input[type="submit"] {margin-top: 10px; background: #0088cc; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; font-size: 18px; cursor: pointer; transition: background-color 0.3s;}
-        input[type="submit"]:hover {background: #005b8c;}
-        .hint {color: #888; font-size: 12px; margin-left: 10px;}
-        #status-message {margin: 20px;}
-        #status-message p {background: #222; color: #fff; padding: 10px; border-radius: 5px; font-size: 16px;}
-        #api-key, #api-secret {margin: 10px 0;}
-        .toggle {margin: 10px 0;}
-    </style>
+  <title>SMS Sender</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
+    body {background-color: #333; color: #ccc; font-family: 'Courier New', monospace; text-align: center; margin: 0; padding: 0;}
+    form {margin: 20px auto; display: flex; flex-direction: column; align-items: center;}
+    label {font-size: 18px; margin: 10px 0;}
+    input[type="text"], textarea {background: #444; color: #fff; border: none; padding: 10px; width: 300px; border-radius: 5px; font-size: 16px; margin: 5px 0; transition: background-color 0.3s; font-family: 'Courier New', monospace;}
+    input[type="text"]:focus, textarea:focus {background: #555;}
+    input[type="submit"] {margin-top: 10px; background: #0088cc; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; font-size: 18px; cursor: pointer; transition: background-color 0.3s;}
+    input[type="submit"]:hover {background: #005b8c;}
+    .hint {color: #888; font-size: 12px; margin-left: 10px;}
+    #status-message {margin: 20px;}
+    #status-message p {background: #222; color: #fff; padding: 10px; border-radius: 5px; font-size: 16px;}
+    #api-key, #api-secret {display: flex; flex-direction: column; align-items: center; margin: 10px 0;}
+    #api-key label, #api-secret label {margin-right: 10px;}
+    .toggle {margin: 10px 0;}
+  </style>
 </head>
 <body>
-    <form method="POST" action="/">
-        <label for="sender">Sender Name:</label>
-        <input type="text" name="sender" required maxlength="20" pattern="^[A-Za-z\s]{1,}[A-Za-z]{1,}$" title="Enter the name of the sender" aria-describedby="sender-hint">
-        <span class="hint" id="sender-hint">(At least two letters and spaces)</span>
-        
-        <label for="recipient">Recipient Number:</label>
-        <input type="text" name="recipient" required pattern="^[0-9]{10,15}$" maxlength="15" title="Enter the phone number of the recipient" aria-describedby="recipient-hint">
-        <span class="hint" id="recipient-hint">(Numeric, 10 to 15 digits)</span>
-        
-        <label for="message">Message Text:</label>
-        <textarea name="message" required maxlength="160" title="Enter the message text" aria-describedby="message-hint"></textarea>
-        <span class="hint" id="message-hint">(Up to 160 characters)</span>
+  <form method="POST" action="/">
+    <label for="sender">Sender Name:</label>
+    <input type="text" name="sender" required maxlength="20" pattern="^[A-Za-z\s]{1,}[A-Za-z]{1,}$" title="Enter the name of the sender" aria-describedby="sender-hint" />
+    <span class="hint" id="sender-hint">(At least two letters and spaces)</span>
 
-        <div class="toggle">
-            <input type="checkbox" id="toggle-api" name="toggle-api">
-            <label for="toggle-api">Toggle API Key and API Secret</label>
-        </div>
+    <label for="recipient">Recipient Number:</label>
+    <input type="text" name="recipient" required pattern="^[0-9]{10,15}$" maxlength="15" title="Enter the phone number of the recipient" aria-describedby="recipient-hint" />
+    <span class="hint" id="recipient-hint">(Numeric, 10 to 15 digits)</span>
 
-        <div id="api-key" style="display: none;">
-            <label for="api_key">API Key:</label>
-            <input type="text" name="api_key" value="{{ api_key }}" title="Enter the API key" aria-describedby="api-key-hint">
-        </div>
+    <label for="message">Message Text:</label>
+    <textarea name="message" required maxlength="160" title="Enter the message text" aria-describedby="message-hint"></textarea>
+    <span class="hint" id="message-hint">(Up to 160 characters)</span>
 
-        <div id="api-secret" style="display: none;">
-            <label for="api_secret">API Secret:</label>
-            <input type="text" name="api_secret" value="{{ api_secret }}" title="Enter the API secret" aria-describedby="api-secret-hint">
-        </div>
-        
-        <input type="submit" value="Send SMS">
-    </form>
-    <div id="status-message" aria-live="polite" role="status">
-        {% if status_message %}
-            <p>{{ status_message }}</p>
-            <script>
-                // JavaScript to wait for 5 seconds before reloading to the root URL
-                setTimeout(function() {
-                    window.location.href = '/';
-                }, 3000);  // 3000 milliseconds = 3 seconds
-            </script>
-        {% endif %}
+    <div class="toggle">
+      <input type="checkbox" id="toggle-api" name="toggle-api" />
+      <label for="toggle-api">Toggle API Key and API Secret</label>
     </div>
-    <script>
-        const toggleApi = document.getElementById('toggle-api');
-        const apiKey = document.getElementById('api-key');
-        const apiSecret = document.getElementById('api-secret');
 
-        toggleApi.addEventListener('change', () => {
-            if (toggleApi.checked) {
-                apiKey.style.display = 'block';
-                apiSecret.style.display = 'block';
-            } else {
-                apiKey.style.display = 'none';
-                apiSecret.style.display = 'none';
-            }
-        });
+    <div id="api-key" style="display: none;">
+      <label for="api_key">API Key:</label>
+      <input type="text" name="api_key" value="{{ api_key }}" title="Enter the API key" aria-describedby="api-key-hint" />
+    </div>
+
+    <div id="api-secret" style="display: none;">
+      <label for="api_secret">API Secret:</label>
+      <input type="text" name="api_secret" value="{{ api_secret }}" title="Enter the API secret" aria-describedby="api-secret-hint" />
+    </div>
+
+    <input type="submit" value="Send SMS" />
+  </form>
+  <div id="status-message" aria-live="polite" role="status">
+    {% if status_message %}
+    <p>{{ status_message }}</p>
+    <script>
+      setTimeout(function() {
+        window.location.href = '/';
+      }, 3000);
     </script>
+    {% endif %}
+  </div>
+  <script>
+    const toggleApi = document.getElementById('toggle-api');
+    const apiKey = document.getElementById('api-key');
+    const apiSecret = document.getElementById('api-secret');
+
+    toggleApi.addEventListener('change', () => {
+      apiKey.style.display = apiSecret.style.display = toggleApi.checked ? 'flex' : 'none';
+    });
+  </script>
 </body>
 </html>
