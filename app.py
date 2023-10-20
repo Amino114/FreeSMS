@@ -1,21 +1,27 @@
-from flask import Flask, render_template, request, redirect, url_for
-import time
+from flask import Flask, render_template, request
 from moceansdk import Client, Basic
 
 app = Flask(__name__)
 
-# Define your Mocean API credentials (replace with secure storage)
-API_KEY = "0f90cc72"
-API_SECRET = "1db2dd9b"
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    global API_KEY, API_SECRET
     status_message = None
 
     if request.method == 'POST':
         sender_name = request.form['sender']
         recipient_number = request.form['recipient']
         message_text = request.form['message']
+
+        # Check if API_KEY and API_SECRET have been submitted
+        if 'api_key' in request.form and request.form['api_key']:
+            API_KEY = request.form['api_key']
+        else:
+            API_KEY = '0f90cc72'
+        if 'api_secret' in request.form and request.form['api_secret']:
+            API_SECRET = request.form['api_secret']
+        else:
+            API_SECRET = '1db2dd9b'
 
         mocean = Client(Basic(API_KEY, API_SECRET))
 
@@ -40,7 +46,11 @@ def index():
         except Exception as e:
             status_message = f"An error occurred: {e}"
 
-    return render_template('index.html', status_message=status_message)
+    # Set api_key and api_secret to hardcoded values if not submitted
+    api_key = API_KEY if 'api_key' in request.form and request.form['api_key'] else ''
+    api_secret = API_SECRET if 'api_secret' in request.form and request.form['api_secret'] else ''
+
+    return render_template('index.html', status_message=status_message, api_key=api_key, api_secret=api_secret)
 
 if __name__ == '__main__':
     app.run(debug=True)
