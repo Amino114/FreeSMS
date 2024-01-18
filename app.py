@@ -17,11 +17,11 @@ def index():
         if 'api_key' in request.form and request.form['api_key']:
             API_KEY = request.form['api_key']
         else:
-            API_KEY = '81574658'
+            API_KEY = '25b22009'
         if 'api_secret' in request.form and request.form['api_secret']:
             API_SECRET = request.form['api_secret']
         else:
-            API_SECRET = '6f4558e2'
+            API_SECRET = '166a1818'
 
         mocean = Client(Basic(API_KEY, API_SECRET))
 
