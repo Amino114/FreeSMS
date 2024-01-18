@@ -4,21 +4,7 @@
   <title>SMS Sender</title>
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {background-color: #333; color: #ccc; font-family: 'Courier New', monospace; text-align: center; margin: 0; padding: 0;}
-    form {margin: 20px auto; display: flex; flex-direction: column; align-items: center;}
-    label {font-size: 18px; margin: 10px 0;}
-    input[type="text"], textarea {background: #444; color: #fff; border: none; padding: 10px; width: 300px; border-radius: 5px; font-size: 16px; margin: 5px 0; transition: background-color 0.3s; font-family: 'Courier New', monospace;}
-    input[type="text"]:focus, textarea:focus {background: #555;}
-    input[type="submit"] {margin-top: 10px; background: #0088cc; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; font-size: 18px; cursor: pointer; transition: background-color 0.3s;}
-    input[type="submit"]:hover {background: #005b8c;}
-    .hint {color: #888; font-size: 12px; margin-left: 10px;}
-    #status-message {margin: 20px;}
-    #status-message p {background: #222; color: #fff; padding: 10px; border-radius: 5px; font-size: 16px;}
-    #api-key, #api-secret {display: flex; flex-direction: column; align-items: center; margin: 10px 0;}
-    #api-key label, #api-secret label {margin-right: 10px;}
-    .toggle {margin: 10px 0;}
-  </style>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
   <form method="POST" action="/">
@@ -61,14 +47,6 @@
     </script>
     {% endif %}
   </div>
-  <script>
-    const toggleApi = document.getElementById('toggle-api');
-    const apiKey = document.getElementById('api-key');
-    const apiSecret = document.getElementById('api-secret');
-
-    toggleApi.addEventListener('change', () => {
-      apiKey.style.display = apiSecret.style.display = toggleApi.checked ? 'flex' : 'none';
-    });
-  </script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
