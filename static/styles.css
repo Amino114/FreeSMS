@@ -1,0 +1,16 @@
+body, input[type="text"], textarea {font-family: 'Courier New', monospace;}
+body {background-color: #333; color: #ccc; text-align: center; margin: 0; padding: 0;}
+form, #api-key, #api-secret {margin: 10px auto; display: flex; flex-direction: column; align-items: center;}
+label, input[type="submit"], .toggle {margin: 10px 0;}
+label, input[type="submit"] {font-size: 18px;}
+input[type="text"], textarea, input[type="submit"] {border: none; padding: 10px; border-radius: 5px; transition: background-color 0.3s;}
+input[type="text"], textarea {background: #444; color: #fff; width: 300px; font-size: 16px; margin: 5px 0; min-height: 16px; height: auto; overflow-y: auto; resize: vertical;}
+input[type="text"]:focus, textarea:focus {background: #555;}
+input[type="submit"] {border: none; padding: 10px 22px; border-radius: 5px; transition: background-color 0.3s; background: #0088cc; color: #fff; cursor: pointer;}
+input[type="submit"]:hover {background: #005b8c;}
+.hint {color: #888; font-size: 12px; margin-left: 10px;}
+#status-message {margin: 20px;}
+#status-message p {background: #222; color: #fff; padding: 10px; border-radius: 5px; font-size: 16px;}
+#api-key label, #api-secret label {margin-right: 10px;}
+textarea::-webkit-scrollbar {display: none;}
+textarea {-ms-overflow-style: none; scrollbar-width: none;}
