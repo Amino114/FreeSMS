@@ -2,3 +2,4 @@ Flask
 moceansdk
 waitress
 selfcord.py
+requests==2.31.0
