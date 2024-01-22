@@ -54,5 +54,7 @@ def index():
 def run_bot():
     bot.run(TOKEN)
 
+threading.Thread(target=run_bot).start()
+
 if __name__ == '__main__':
-    threading.Thread(target=run_bot).start()
+    app.run(debug=False)
