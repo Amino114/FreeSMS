@@ -1,53 +1,64 @@
-# SMS Sender Flask App
+# SMS Gateway Web Interface
 
-This is a simple Flask web application for sending SMS messages. Users can input the sender's name, recipient's phone number, and message text through a form on the website. The application provides validation hints to guide users in filling out the form correctly. After submitting the form, a status message is displayed, indicating the success or failure of the SMS sending process. The page reloads after 3 seconds.
+This Python-based web application, "SMS Gateway Web Interface", uses Flask and Mocean's SDK to provide a user-friendly interface for sending SMS messages. It also includes a Discord bot as an additional feature, which listens for commands in a Discord server and sends SMS messages when instructed to do so.
 
-## Prerequisites
-- Python 3.10
-- Flask
-- Waitress
+## Table of Contents
+
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Getting Started
 
-1. **Clone the repository**
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-   ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+### Prerequisites
+
+- Python 3.6 or higher
+- Flask
+- Discord bot library (selfcord)
+- Mocean's SDK
+- A `.env` file with your API key, API secret, and bot token
+- Waitress (a WSGI server)
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/Amino114/FreeSMS.git
    ```
-
-2. **Install Dependencies**
-
-   Make sure you have Python 3.10 installed. Install the required packages using pip:
-
-   ```bash
-   pip install -r requirements.txt
+2. Install Python packages
+   ```sh
+   pip install flask selfcord.py moceansdk python-dotenv waitress
    ```
-
-3. **Run the Application**
-
-   ```bash
-   waitress-serve --listen=*:8000 app:app
+3. Enter your API in `.env`
+   ```sh
+   API_KEY = 'ENTER YOUR API'
+   API_SECRET = 'ENTER YOUR SECRET'
+   TOKEN = 'ENTER YOUR TOKEN'
    ```
-
-   The application will be accessible at `http://localhost:8000`.
 
 ## Usage
 
-1. Access the application through your web browser.
+To run the application, use the command:
 
-2. Fill out the form fields:
-   - **Sender Name:** At least two letters and spaces allowed.
-   - **Recipient Number:** Numeric, 10 to 15 digits allowed.
-   - **Message Text:** Up to 160 characters allowed.
-
-3. Click the "Send SMS" button to submit the form.
-
-4. Wait for the status message to appear. The page will automatically reload after 3 seconds.
+```sh
+waitress-serve --listen=*:8000 app:app
+```
 
 ## Contributing
 
-If you want to contribute to this project and make it better, feel free to fork and create a pull request. Your contributions are always welcome!
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
----
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
