@@ -38,7 +38,7 @@ def start_command_handler(update: Update, context: CallbackContext):
         "<sender> - Your name or identifier.\n"
         "<recipient> - Recipient's phone number.\n"
         "<message> - Message to send.\n\n"
-        "Example:\n/send John +1234567890 Hello, this is a test."
+        "Example:\n/send John 1234567890 Hello, this is a test."
     )
 
 updater.dispatcher.add_handler(CommandHandler('start', start_command_handler))
