@@ -1,6 +1,6 @@
 # SMS Gateway Web Interface
 
-This Python-based web application, "SMS Gateway Web Interface", uses Flask and Mocean's SDK to provide a user-friendly interface for sending SMS messages. It also includes a Discord bot as an additional feature, which listens for commands in a Discord server and sends SMS messages when instructed to do so.
+This Python-based web application, "SMS Gateway Web Interface", uses Flask and Mocean's SDK to provide a user-friendly interface for sending SMS messages. It also includes a Telegram bot as an additional feature, which listens for commands in a Telegram Bot chat and sends SMS messages when instructed to do so.
 
 ## Table of Contents
 
@@ -19,7 +19,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 - Python 3.6 or higher
 - Flask
-- Discord bot library (selfcord)
 - Mocean's SDK
 - A `.env` file with your API key, API secret, and bot token
 - Waitress (a WSGI server)
